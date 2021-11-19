@@ -8,11 +8,13 @@ import { ApicallService } from './apicall.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicosComponent } from './servicos/servicos.component';
+import { ShowServicosComponent } from './servicos/show-servicos/show-servicos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServicosComponent
+    ServicosComponent,
+    ShowServicosComponent
   ],
   imports: [
     BrowserModule,
