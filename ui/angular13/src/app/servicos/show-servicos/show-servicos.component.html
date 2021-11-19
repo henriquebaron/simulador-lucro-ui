@@ -1,1 +1,24 @@
-<p>show-servicos works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id Serviço</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Duração</th>
+            <th>Valor</th>
+            <th>Custo</th>
+            <th>Opções</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of listaServicos">
+            <td>{{dataItem.id}}</td>
+            <td>{{dataItem.nome}}</td>
+            <td>{{dataItem.descricao}}</td>
+            <td>{{dataItem.duracao}}</td>
+            <td>{{dataItem.valor}}</td>
+            <td>{{dataItem.custo}}</td>
+            <td>Opção</td>
+        </tr>
+    </tbody>
+</table>
