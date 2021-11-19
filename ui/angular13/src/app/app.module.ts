@@ -7,12 +7,12 @@ import { ApicallService } from './apicall.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ListServicosComponent } from './list-servicos/list-servicos.component';
+import { ServicosComponent } from './servicos/servicos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListServicosComponent
+    ServicosComponent
   ],
   imports: [
     BrowserModule,

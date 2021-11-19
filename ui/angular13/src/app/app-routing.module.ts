@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListServicosComponent } from './list-servicos/list-servicos.component';
+import { ServicosComponent } from './servicos/servicos.component';
 
 const routes: Routes = [
-  { path:'servicos', component:ListServicosComponent }
+  { path:'servicos', component:ServicosComponent }
 ];
 
 @NgModule({
