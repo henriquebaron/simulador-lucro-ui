@@ -19,7 +19,7 @@ export class AddEditServicoComponent implements OnInit {
   }
 
   editServico() {
-
+    this.apiService.atualizarServico(this.servico).subscribe(res => { console.log(res) });
   }
 
 }

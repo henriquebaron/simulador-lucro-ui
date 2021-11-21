@@ -39,6 +39,12 @@ export class ShowServicosComponent implements OnInit {
     this.ativarAddEditCompleto = true;
   }
 
+  editServico(servico: any) {
+    this.modalTitle = "Editar serviço";
+    this.servico = servico;
+    this.ativarAddEditCompleto = true;
+  }
+
   fechaModal() {
     this.ativarAddEditCompleto = false;
     this.obterListaServicos();
