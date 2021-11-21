@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs';
 import { ApicallService } from 'src/app/apicall.service';
 
 @Component({
@@ -43,6 +44,13 @@ export class ShowServicosComponent implements OnInit {
     this.modalTitle = "Editar serviço";
     this.servico = servico;
     this.ativarAddEditCompleto = true;
+  }
+
+  deleteServico(servico: any) {
+    if (confirm('Tem certeza que deseja apagar?')) {
+      this.apiService.removerServico(servico.id).subscribe(res => { alert(res.toString()); });
+    }
+    this.obterListaServicos();
   }
 
   fechaModal() {
