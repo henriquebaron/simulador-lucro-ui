@@ -13,6 +13,7 @@ export class ShowServicosComponent implements OnInit {
   listaServicos: any = [];
   servico: any;
 
+  ativarAddEditCompleto: boolean = false;
   modalTitle: string = "";
 
   ngOnInit(): void {
@@ -27,6 +28,20 @@ export class ShowServicosComponent implements OnInit {
 
   addServico() {
     this.modalTitle = "Adicionar serviço";
+    this.servico = {
+      id: 0,
+      nome: "",
+      descricao: "",
+      duracao: "00:00",
+      valor: 0,
+      custo: 0
+    };
+    this.ativarAddEditCompleto = true;
+  }
+
+  fechaModal() {
+    this.ativarAddEditCompleto = false;
+    this.obterListaServicos();
   }
 
 }

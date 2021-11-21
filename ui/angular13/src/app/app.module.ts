@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicosComponent } from './servicos/servicos.component';
 import { ShowServicosComponent } from './servicos/show-servicos/show-servicos.component';
+import { AddEditServicoComponent } from './servicos/add-edit-servico/add-edit-servico.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServicosComponent,
-    ShowServicosComponent
+    ShowServicosComponent,
+    AddEditServicoComponent
   ],
   imports: [
     BrowserModule,
