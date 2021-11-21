@@ -1,1 +1,36 @@
-<p>add-edit-servico works!</p>
+<div class="form-group">
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Nome</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="servico.nome" placeholder="nome do serviço">
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Descrição</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" [(ngModel)]="servico.descricao"
+                placeholder="quer adicionar algum detalhe?">
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Duração</label>
+        <div class="col-md-10">
+            <input type="text" pattern="[0-9]{2}:[0-9]{2}" class="form-control" [(ngModel)]="servico.duracao">
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Valor</label>
+        <div class="col-md-10">
+            <input type="number" class="form-control" [(ngModel)]="servico.valor">
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Custo</label>
+        <div class="col-md-10">
+            <input type="number" class="form-control" [(ngModel)]="servico.custo">
+        </div>
+    </div>
+</div>
+
+<button (click)="addServico()" *ngIf="servico.id == 0" class="btn btn-primary">Adicionar</button>
+<button (click)="editServico()" *ngIf="servico.id != 0" class="btn btn-primary">Adicionar</button>

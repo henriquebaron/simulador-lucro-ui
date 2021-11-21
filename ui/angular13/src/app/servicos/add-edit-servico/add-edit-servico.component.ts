@@ -8,11 +8,18 @@ import { ApicallService } from 'src/app/apicall.service';
 })
 export class AddEditServicoComponent implements OnInit {
 
-  constructor(private apiService:ApicallService) { }
+  constructor(private apiService: ApicallService) { }
 
   @Input() servico: any;
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  addServico() {
+    this.apiService.adicionarServico(this.servico).subscribe(res => { console.log(res) });
+  }
+
+  editServico() {
+
   }
 
 }
