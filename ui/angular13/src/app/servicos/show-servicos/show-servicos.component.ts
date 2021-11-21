@@ -13,6 +13,8 @@ export class ShowServicosComponent implements OnInit {
   listaServicos: any = [];
   servico: any;
 
+  modalTitle: string = "";
+
   ngOnInit(): void {
     this.obterListaServicos();
   }
@@ -21,6 +23,10 @@ export class ShowServicosComponent implements OnInit {
     this.apiService.getListaServicos().subscribe(data => {
       this.listaServicos = data;
     })
+  }
+
+  addServico() {
+    this.modalTitle = "Adicionar serviço";
   }
 
 }

@@ -1,3 +1,22 @@
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#modalAddEdit"
+    (click)="addServico()" data-backdrop="static" data-keyboard="false">
+    Adicionar serviço
+</button>
+
+<div class="modal" id="modalAddEdit" tabindex="-1" aria-labelledby="modalAddEditLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-x1">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAddEditLabel">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
