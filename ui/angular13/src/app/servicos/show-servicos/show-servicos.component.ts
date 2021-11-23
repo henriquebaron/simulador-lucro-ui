@@ -1,5 +1,7 @@
 import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
 import { ApicallService } from 'src/app/apicall.service';
+import { Servico } from 'src/app/servico';
+import { ServicosComponent } from '../servicos.component';
 
 @Component({
   selector: 'app-show-servicos',
@@ -10,8 +12,8 @@ export class ShowServicosComponent implements OnInit {
 
   constructor(private apiService: ApicallService) { }
 
-  listaServicos: any = [];
-  servico: any;
+  listaServicos: Servico[] = [];
+  servico: Servico = new Servico();
 
   ativarAddEditCompleto: boolean = false;
   modalTitle: string = "";
@@ -28,27 +30,20 @@ export class ShowServicosComponent implements OnInit {
 
   addServico() {
     this.modalTitle = "Adicionar serviço";
-    this.servico = {
-      id: 0,
-      nome: "",
-      descricao: "",
-      duracao: "00:00",
-      valor: 0,
-      custo: 0
-    };
+    this.servico = new Servico();
     this.ativarAddEditCompleto = true;
   }
 
-  editServico(servico: any) {
+  editServico(servico: Servico) {
     this.modalTitle = "Editar serviço";
     this.servico = servico;
     this.ativarAddEditCompleto = true;
   }
 
-  deleteServico(servico: any) {
+  deleteServico(servico: Servico) {
     if (confirm('Tem certeza que deseja apagar?')) {
       this.apiService.removerServico(servico.id).subscribe(res => {
-        if ((res as any).id == servico.id) {
+        if ((res as Servico).id == servico.id) {
           alert("Removido com sucesso.");
           this.obterListaServicos();
         }

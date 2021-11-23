@@ -14,8 +14,11 @@
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label">Duração</label>
-        <div class="col-md-10">
-            <input type="text" pattern="[0-9]{2}:[0-9]{2}" class="form-control" [(ngModel)]="servico.duracao">
+        <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="horas">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="minutos">
         </div>
     </div>
     <div class="row">
