@@ -10,13 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicosComponent } from './servicos/servicos.component';
 import { ShowServicosComponent } from './servicos/show-servicos/show-servicos.component';
 import { AddEditServicoComponent } from './servicos/add-edit-servico/add-edit-servico.component';
+import { AgendaComponent } from './agenda/agenda.component';
+import { ShowSimulacaoDiaComponent } from './agenda/show-simulacao-dia/show-simulacao-dia.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServicosComponent,
     ShowServicosComponent,
-    AddEditServicoComponent
+    AddEditServicoComponent,
+    AgendaComponent,
+    ShowSimulacaoDiaComponent
   ],
   imports: [
     BrowserModule,
