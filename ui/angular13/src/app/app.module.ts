@@ -11,6 +11,8 @@ import { ServicosComponent } from './servicos/servicos.component';
 import { ShowServicosComponent } from './servicos/show-servicos/show-servicos.component';
 import { AddEditServicoComponent } from './servicos/add-edit-servico/add-edit-servico.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { SimulacaoComponent } from './simulacao/simulacao.component';
+import { ShowSimulacaoComponent } from './simulacao/show-simulacao/show-simulacao.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AgendaComponent } from './agenda/agenda.component';
     ServicosComponent,
     ShowServicosComponent,
     AddEditServicoComponent,
-    AgendaComponent
+    AgendaComponent,
+    SimulacaoComponent,
+    ShowSimulacaoComponent
   ],
   imports: [
     BrowserModule,
