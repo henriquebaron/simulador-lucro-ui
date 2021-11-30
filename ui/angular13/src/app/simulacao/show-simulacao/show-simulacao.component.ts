@@ -5,7 +5,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar'
-import { EventEmitter } from 'stream';
+import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -25,17 +25,8 @@ export class ShowSimulacaoComponent implements OnInit {
   dayStartHour: number = 6;
   dayEndHour: number = 22;
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Draggable event',
-      start: new Date(),
-      draggable: true,
-    },
-    {
-      title: 'A non draggable event',
-      start: new Date(),
-    }
-  ];
+  agendamentos: AgendamentoSimulacao[] = [];
+  events: CalendarEvent[] = []
 
   eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
