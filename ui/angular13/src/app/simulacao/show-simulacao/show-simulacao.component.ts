@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/internal/Subject';
 import {
   CalendarEvent,
@@ -6,6 +7,7 @@ import {
   CalendarView
 } from 'angular-calendar'
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
+import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -15,7 +17,7 @@ import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 })
 export class ShowSimulacaoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -34,8 +36,20 @@ export class ShowSimulacaoComponent implements OnInit {
     this.refresh.next(null);
   }
 
-  hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void{
-    console.log(date.toString());
+  hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
+    this.adicionarSimulacao(0, 0);
+  }
+
+  adicionarSimulacao(hours: number, minutes: number): void {
+    this.openModal();
+  }
+
+  openModal(): void {
+    this.modalService.open(AddEditSimulacaoComponent).result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log('Dismissed: ' + reason);
+    });
   }
 
 }

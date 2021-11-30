@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-add-edit-simulacao',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-edit-simulacao.component.css']
 })
 export class AddEditSimulacaoComponent implements OnInit {
+  @Input() name: any;
 
-  constructor() { }
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
   }

@@ -18,6 +18,7 @@ import { AgendaComponent } from './agenda/agenda.component';
 import { SimulacaoComponent } from './simulacao/simulacao.component';
 import { ShowSimulacaoComponent } from './simulacao/show-simulacao/show-simulacao.component';
 import { AddEditSimulacaoComponent } from './simulacao/add-edit-simulacao/add-edit-simulacao.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddEditSimulacaoComponent } from './simulacao/add-edit-simulacao/add-ed
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    })
+    }),
+    NgbModule
   ],
   providers: [ApicallService],
   bootstrap: [AppComponent]
