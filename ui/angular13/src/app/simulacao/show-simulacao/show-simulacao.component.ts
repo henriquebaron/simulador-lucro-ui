@@ -5,6 +5,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar'
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -19,8 +20,10 @@ export class ShowSimulacaoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  view: CalendarView = CalendarView.Month;
+  refresh: Subject<any> = new Subject();
   viewDate: Date = new Date();
+  dayStartHour: number = 6;
+  dayEndHour: number = 22;
 
   events: CalendarEvent[] = [
     {
@@ -34,16 +37,14 @@ export class ShowSimulacaoComponent implements OnInit {
     }
   ];
 
-  refresh: Subject<any> = new Subject();
-
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
     this.refresh.next(null);
+  }
+
+  hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void{
+    console.log(date.toString());
   }
 
 }
