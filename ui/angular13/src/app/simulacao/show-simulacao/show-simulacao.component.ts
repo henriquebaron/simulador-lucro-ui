@@ -9,6 +9,7 @@ import {
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
 import { delay } from 'rxjs';
+import { Servico } from 'src/app/servico';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -47,7 +48,13 @@ export class ShowSimulacaoComponent implements OnInit {
 
     const modalRef = this.modalService.open(AddEditSimulacaoComponent);
     modalRef.componentInstance.agendamento = agendamento;
+    modalRef.componentInstance.nomeJanela = "Novo agendamento";
 
+    modalRef.result.then((result) => {
+      var servico = result as Servico;
+      console.log(servico.nome);
+      console.log(servico.id);
+    })
   }
 
 }
