@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 
 @Component({
   selector: 'app-add-edit-simulacao',
@@ -8,10 +9,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddEditSimulacaoComponent implements OnInit {
   @Input() name: any;
+  @Input() agendamento: AgendamentoSimulacao | undefined;
 
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    console.log(this.agendamento?.hora);
   }
 
 }

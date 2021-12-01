@@ -8,6 +8,7 @@ import {
 } from 'angular-calendar'
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -37,19 +38,16 @@ export class ShowSimulacaoComponent implements OnInit {
   }
 
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
-    this.adicionarSimulacao(0, 0);
+    this.adicionarSimulacao(date.getHours(), date.getMinutes());
   }
 
   adicionarSimulacao(hours: number, minutes: number): void {
-    this.openModal();
-  }
+    var agendamento = new AgendamentoSimulacao();
+    agendamento.hora = AgendamentoSimulacao.horaAsString(hours, minutes);
 
-  openModal(): void {
-    this.modalService.open(AddEditSimulacaoComponent).result.then((result) => {
-      console.log(result);
-    }, (reason) => {
-      console.log('Dismissed: ' + reason);
-    });
+    const modalRef = this.modalService.open(AddEditSimulacaoComponent);
+    modalRef.componentInstance.agendamento = agendamento;
+
   }
 
 }
