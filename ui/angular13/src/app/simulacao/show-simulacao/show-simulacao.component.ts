@@ -28,6 +28,8 @@ export class ShowSimulacaoComponent implements OnInit {
   viewDate: Date = new Date();
   dayStartHour: number = 6;
   dayEndHour: number = 22;
+  hourSegments: number = 2;
+  hourSegmentHeight: number = 30;
 
   agendamentos: AgendamentoSimulacao[] = [];
   events: CalendarEvent[] = []
