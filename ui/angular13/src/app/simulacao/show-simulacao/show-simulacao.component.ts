@@ -38,21 +38,42 @@ export class ShowSimulacaoComponent implements OnInit {
   }
 
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
-    this.adicionarSimulacao(date.getHours(), date.getMinutes());
+    this.adicionarSimulacao(date);
   }
 
-  adicionarSimulacao(hours: number, minutes: number): void {
-    var agendamento = new AgendamentoSimulacao();
-    agendamento.hora = AgendamentoSimulacao.horaAsString(hours, minutes);
-
+  async adicionarSimulacao(date: Date): Promise<void> {
     const modalRef = this.modalService.open(AddEditSimulacaoComponent);
     modalRef.componentInstance.nomeJanela = "Novo agendamento";
 
-    var servicoSelecionado;
-    modalRef.result.then((result) => {
-      servicoSelecionado = result as Servico;
-      console.log(servicoSelecionado);
-    }, () => { });
+    var servicoSelecionado = new Servico();
+    await modalRef.result.then((result) => { servicoSelecionado = result as Servico; }, () => { });
+
+    /* Encerra o método se a janela de seleção foi fechada e o 
+    servico selecionado não foi atribuído */
+    if (servicoSelecionado.id == 0) return;
+
+    var agendamento = new AgendamentoSimulacao();
+    agendamento.idServico = servicoSelecionado.id
+    agendamento.hora = AgendamentoSimulacao.horaAsString(date.getHours(), date.getMinutes());
+
+    const horaTerminoString = agendamento.getHoraTermino(servicoSelecionado).split(':');
+    const horaTerminoHoras = Number.parseInt(horaTerminoString[0]);
+    const horaTerminoMinutos = Number.parseInt(horaTerminoString[1]);
+    var horaTermino = new Date(Date.now());
+    horaTermino.setHours(horaTerminoHoras, horaTerminoMinutos);
+
+    var novoEvento: CalendarEvent = {
+      title: servicoSelecionado.nome,
+      start: date,
+      end: horaTermino
+    };
+
+    this.events.push(novoEvento);
+    this.agendamentos.push(agendamento);
+    this.refresh.next(null);
+
+    console.log(this.events);
+    console.log(this.agendamentos);
   }
 
 }
