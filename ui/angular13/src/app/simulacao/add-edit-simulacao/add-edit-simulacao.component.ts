@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { Servico } from 'src/app/servico';
 import { ApicallService } from 'src/app/apicall.service';
 
@@ -10,11 +9,8 @@ import { ApicallService } from 'src/app/apicall.service';
   styleUrls: ['./add-edit-simulacao.component.css']
 })
 export class AddEditSimulacaoComponent implements OnInit {
-  @Input() name: any;
-  @Input() agendamento: AgendamentoSimulacao = new AgendamentoSimulacao();
+  @Input() nomeJanela: string = "";
 
-  nomeJanela: string = "";
-  servicoSelecionado: Servico = new Servico();
   idSelecionado: number = 0;
   servicos: Servico[] = [];
 
@@ -27,11 +23,10 @@ export class AddEditSimulacaoComponent implements OnInit {
   }
 
   salvar(): void {
-    console.log(this.idSelecionado);
-    this.apiService.getServico(this.idSelecionado).subscribe(result => {
-      console.log(result);
-    });
-    this.agendamento.idServico = this.idSelecionado;
+    if (this.idSelecionado > 0) {
+      const servicoSelecionado = this.servicos.filter((value) => value.id == this.idSelecionado)[0];
+      this.activeModal.close(servicoSelecionado);
+    }
   }
 
 }
