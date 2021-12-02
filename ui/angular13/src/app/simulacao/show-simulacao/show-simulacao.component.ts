@@ -9,6 +9,7 @@ import {
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
 import { Servico } from 'src/app/servico';
+import { ConversaoHora } from 'src/app/conversao-hora';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -32,9 +33,19 @@ export class ShowSimulacaoComponent implements OnInit {
   events: CalendarEvent[] = []
 
   eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+    // Edita o agendamento correspondente à seleção, buscando pela hora de início
+    const eventStartString = ConversaoHora.getStringHora(event.start);
+    const newStartSTring = ConversaoHora.getStringHora(newStart);
+    console.log(eventStartString);
+    var agendamentoSelecionado = this.agendamentos
+      .filter((value) => value.hora == eventStartString)[0];
+    agendamentoSelecionado.hora = newStartSTring;
     event.start = newStart;
     event.end = newEnd;
     this.refresh.next(null);
+
+    console.log(this.events);
+    console.log(this.agendamentos);
   }
 
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
@@ -56,24 +67,19 @@ export class ShowSimulacaoComponent implements OnInit {
     agendamento.idServico = servicoSelecionado.id
     agendamento.hora = AgendamentoSimulacao.horaAsString(date.getHours(), date.getMinutes());
 
-    const horaTerminoString = agendamento.getHoraTermino(servicoSelecionado).split(':');
-    const horaTerminoHoras = Number.parseInt(horaTerminoString[0]);
-    const horaTerminoMinutos = Number.parseInt(horaTerminoString[1]);
-    var horaTermino = new Date(Date.now());
-    horaTermino.setHours(horaTerminoHoras, horaTerminoMinutos);
+    const horaTerminoString = agendamento.getHoraTermino(servicoSelecionado);
+    var horaTermino = ConversaoHora.getDateFromString(horaTerminoString);
 
     var novoEvento: CalendarEvent = {
       title: servicoSelecionado.nome,
       start: date,
-      end: horaTermino
+      end: horaTermino,
+      draggable: true,
     };
 
     this.events.push(novoEvento);
     this.agendamentos.push(agendamento);
     this.refresh.next(null);
-
-    console.log(this.events);
-    console.log(this.agendamentos);
   }
 
 }
