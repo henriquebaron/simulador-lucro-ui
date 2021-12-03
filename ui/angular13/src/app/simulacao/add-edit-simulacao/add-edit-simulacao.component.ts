@@ -11,8 +11,7 @@ import { ApicallService } from 'src/app/apicall.service';
 })
 export class AddEditSimulacaoComponent implements OnInit {
   @Input() nomeJanela: string = "";
-  @Input() hora: number = 0;
-  @Input() minuto: number = 0;
+  @Input() horaSelecionada: Date = new Date();
 
   idSelecionado: number = 0;
   servicos: Servico[] = [];
@@ -30,8 +29,7 @@ export class AddEditSimulacaoComponent implements OnInit {
       const servicoSelecionado = this.servicos.filter((value) => value.id == this.idSelecionado)[0];
       const dadosResult: RetornoAddEditSimulacao = {
         servico: servicoSelecionado,
-        hora: this.hora,
-        minuto: this.minuto
+        hora: this.horaSelecionada,
       };
       this.activeModal.close(dadosResult);
     }

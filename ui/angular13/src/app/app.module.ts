@@ -18,7 +18,8 @@ import { AgendaComponent } from './agenda/agenda.component';
 import { SimulacaoComponent } from './simulacao/simulacao.component';
 import { ShowSimulacaoComponent } from './simulacao/show-simulacao/show-simulacao.component';
 import { AddEditSimulacaoComponent } from './simulacao/add-edit-simulacao/add-edit-simulacao.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeDateAdapter } from 'src/shared/timepicker-number-adapter';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     NgbModule
   ],
-  providers: [ApicallService],
+  providers: [
+    ApicallService,
+    {provide: NgbTimeAdapter, useClass: NgbTimeDateAdapter}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

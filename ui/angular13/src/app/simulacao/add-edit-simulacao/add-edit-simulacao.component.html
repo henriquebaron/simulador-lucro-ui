@@ -8,13 +8,15 @@
     <form>
         <div class="form-group">
             <label for="servico">Qual é o serviço?</label>
-            <div class="input-group">
-                <select id="servico" class="form-control" [(ngModel)]="idSelecionado" name="id">
-                    <option *ngFor="let servicoItem of servicos" [value]="servicoItem.id">
-                        {{servicoItem.nome}}
-                    </option>
-                </select>
-            </div>
+            <select id="servico" class="form-control" [(ngModel)]="idSelecionado" name="id">
+                <option *ngFor="let servicoItem of servicos" [value]="servicoItem.id">
+                    {{servicoItem.nome}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="horario">E o horário?</label>
+            <ngb-timepicker [(ngModel)]="horaSelecionada" name="time"></ngb-timepicker>
         </div>
     </form>
 </div>

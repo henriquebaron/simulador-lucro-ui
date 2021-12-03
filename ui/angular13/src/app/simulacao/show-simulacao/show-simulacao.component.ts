@@ -58,14 +58,13 @@ export class ShowSimulacaoComponent implements OnInit {
   async adicionarSimulacao(date: Date): Promise<void> {
     const modalRef = this.modalService.open(AddEditSimulacaoComponent);
     modalRef.componentInstance.nomeJanela = "Novo agendamento";
-    modalRef.componentInstance.hora = date.getHours();
-    modalRef.componentInstance.minuto = date.getMinutes();
+    modalRef.componentInstance.horaSelecionada = date;
 
     var servicoSelecionado = new Servico();
     await modalRef.result.then((result) => {
       const dadosResult = result as RetornoAddEditSimulacao;
       servicoSelecionado = dadosResult.servico;
-      date.setHours(dadosResult.hora, dadosResult.minuto);
+      date = dadosResult.hora;
     }, () => { });
 
     /* Encerra o método se a janela de seleção foi fechada e o 
