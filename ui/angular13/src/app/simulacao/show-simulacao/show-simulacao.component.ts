@@ -36,12 +36,8 @@ export class ShowSimulacaoComponent implements OnInit {
   events: CalendarEvent[] = []
 
   eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    // Edita o agendamento correspondente à seleção, buscando pela hora de início
-    const eventStartString = ConversaoHora.getStringHora(event.start);
+    var agendamentoSelecionado = this.obterAgendamentoPorEvento(event);
     const newStartSTring = ConversaoHora.getStringHora(newStart);
-    console.log(eventStartString);
-    var agendamentoSelecionado = this.agendamentos
-      .filter((value) => value.hora == eventStartString)[0];
     agendamentoSelecionado.hora = newStartSTring;
     event.start = newStart;
     event.end = newEnd;
@@ -51,8 +47,19 @@ export class ShowSimulacaoComponent implements OnInit {
     console.log(this.agendamentos);
   }
 
+  eventClicked({ event }: { event: CalendarEvent }): void {
+    var agendamentoSelecionado = this.obterAgendamentoPorEvento(event);
+    console.log(agendamentoSelecionado);
+  }
+
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
     this.adicionarSimulacao(date);
+  }
+
+  obterAgendamentoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
+    // Busca um agendamento correspondente ao evento, buscando pela hora de início
+    const eventStartString = ConversaoHora.getStringHora(event.start);
+    return this.agendamentos.filter((value) => value.hora == eventStartString)[0];
   }
 
   async adicionarSimulacao(date: Date): Promise<void> {

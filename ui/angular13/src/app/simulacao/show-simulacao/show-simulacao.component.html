@@ -1,5 +1,6 @@
 <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [dayStartHour]="dayStartHour"
   [dayEndHour]="dayEndHour" [hourSegments]="hourSegments" [hourSegmentHeight]="hourSegmentHeight"
   (eventTimesChanged)="eventTimesChanged($event)"
-  (hourSegmentClicked)="hourSegmentClicked($event.date, $event.sourceEvent)">
+  (hourSegmentClicked)="hourSegmentClicked($event.date, $event.sourceEvent)"
+  (eventClicked)="eventClicked($event)">
 </mwl-calendar-day-view>
