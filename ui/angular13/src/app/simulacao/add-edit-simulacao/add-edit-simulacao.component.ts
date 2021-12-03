@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Servico } from 'src/app/servico';
+import { RetornoAddEditSimulacao } from '../retorno-add-edit-simulacao';
 import { ApicallService } from 'src/app/apicall.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { ApicallService } from 'src/app/apicall.service';
 })
 export class AddEditSimulacaoComponent implements OnInit {
   @Input() nomeJanela: string = "";
+  @Input() hora: number = 0;
+  @Input() minuto: number = 0;
 
   idSelecionado: number = 0;
   servicos: Servico[] = [];
@@ -25,7 +28,12 @@ export class AddEditSimulacaoComponent implements OnInit {
   salvar(): void {
     if (this.idSelecionado > 0) {
       const servicoSelecionado = this.servicos.filter((value) => value.id == this.idSelecionado)[0];
-      this.activeModal.close(servicoSelecionado);
+      const dadosResult: RetornoAddEditSimulacao = {
+        servico: servicoSelecionado,
+        hora: this.hora,
+        minuto: this.minuto
+      };
+      this.activeModal.close(dadosResult);
     }
   }
 

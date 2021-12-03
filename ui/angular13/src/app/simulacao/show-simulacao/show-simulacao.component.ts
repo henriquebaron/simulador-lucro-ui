@@ -10,6 +10,7 @@ import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
 import { Servico } from 'src/app/servico';
 import { ConversaoHora } from 'src/app/conversao-hora';
+import { RetornoAddEditSimulacao } from '../retorno-add-edit-simulacao';
 
 @Component({
   selector: 'app-show-simulacao',
@@ -57,9 +58,15 @@ export class ShowSimulacaoComponent implements OnInit {
   async adicionarSimulacao(date: Date): Promise<void> {
     const modalRef = this.modalService.open(AddEditSimulacaoComponent);
     modalRef.componentInstance.nomeJanela = "Novo agendamento";
+    modalRef.componentInstance.hora = date.getHours();
+    modalRef.componentInstance.minuto = date.getMinutes();
 
     var servicoSelecionado = new Servico();
-    await modalRef.result.then((result) => { servicoSelecionado = result as Servico; }, () => { });
+    await modalRef.result.then((result) => {
+      const dadosResult = result as RetornoAddEditSimulacao;
+      servicoSelecionado = dadosResult.servico;
+      date.setHours(dadosResult.hora, dadosResult.minuto);
+    }, () => { });
 
     /* Encerra o método se a janela de seleção foi fechada e o 
     servico selecionado não foi atribuído */
