@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/internal/Subject';
 import {
   CalendarEvent,
@@ -45,24 +45,15 @@ export class ShowSimulacaoComponent implements OnInit {
   }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
-    var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
-    console.log(simulacaoSelecionada);
+    this.editarSimulacao(event);
   }
 
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
     this.adicionarSimulacao(date);
   }
 
-  obterSimulacaoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
-    // Busca um agendamento correspondente ao evento, buscando pela hora de início
-    const eventStartString = ConversaoHora.getStringHora(event.start);
-    return this.simulacoes.filter((value) => value.hora == eventStartString)[0];
-  }
-
-  async adicionarSimulacao(date: Date): Promise<void> {
-    const modalRef = this.modalService.open(AddEditSimulacaoComponent);
-    modalRef.componentInstance.nomeJanela = "Novo agendamento";
-    modalRef.componentInstance.horaSelecionada = date;
+  private async adicionarSimulacao(date: Date): Promise<void> {
+    const modalRef = this.abrirJanelaEdicao("Novo agendamento", date);
 
     var servicoSelecionado = new Servico();
     await modalRef.result.then((result) => {
@@ -92,6 +83,35 @@ export class ShowSimulacaoComponent implements OnInit {
     this.events.push(novoEvento);
     this.simulacoes.push(simulacao);
     this.refresh.next(null);
+  }
+
+  private async editarSimulacao(event: CalendarEvent): Promise<void> {
+    var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
+
+    const modalRef = this.abrirJanelaEdicao("Editar agendamento", event.start);
+    modalRef.componentInstance.idSelecionado = simulacaoSelecionada.idServico;
+    await modalRef.result.then((result) => {
+      const dadosResult = result as RetornoAddEditSimulacao;
+      simulacaoSelecionada.idServico = dadosResult.servico.id;
+      simulacaoSelecionada.hora = ConversaoHora.getStringHora(dadosResult.hora);
+      event.title = dadosResult.servico.nome;
+      event.start = dadosResult.hora;
+      event.end = ConversaoHora.getDateFromString(simulacaoSelecionada.getHoraTermino(dadosResult.servico));
+    })
+    this.refresh.next(null);
+  }
+
+  private obterSimulacaoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
+    // Busca um agendamento correspondente ao evento, buscando pela hora de início
+    const eventStartString = ConversaoHora.getStringHora(event.start);
+    return this.simulacoes.filter((value) => value.hora == eventStartString)[0];
+  }
+
+  private abrirJanelaEdicao(nomeJanela: string, horaSelecionada: Date): NgbModalRef {
+    const modalRef = this.modalService.open(AddEditSimulacaoComponent);
+    modalRef.componentInstance.nomeJanela = nomeJanela;
+    modalRef.componentInstance.horaSelecionada = horaSelecionada;
+    return modalRef;
   }
 
 }

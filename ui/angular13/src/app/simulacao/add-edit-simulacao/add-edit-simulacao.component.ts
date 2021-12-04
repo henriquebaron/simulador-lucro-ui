@@ -12,8 +12,8 @@ import { ApicallService } from 'src/app/apicall.service';
 export class AddEditSimulacaoComponent implements OnInit {
   @Input() nomeJanela: string = "";
   @Input() horaSelecionada: Date = new Date();
-
-  idSelecionado: number = 0;
+  @Input() idSelecionado: number = 0;
+  
   servicos: Servico[] = [];
 
   constructor(public activeModal: NgbActiveModal, public apiService: ApicallService) { }
