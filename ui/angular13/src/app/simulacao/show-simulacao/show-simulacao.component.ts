@@ -32,34 +32,31 @@ export class ShowSimulacaoComponent implements OnInit {
   hourSegments: number = 2;
   hourSegmentHeight: number = 30;
 
-  agendamentos: AgendamentoSimulacao[] = [];
+  simulacoes: AgendamentoSimulacao[] = [];
   events: CalendarEvent[] = []
 
   eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    var agendamentoSelecionado = this.obterAgendamentoPorEvento(event);
+    var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
     const newStartSTring = ConversaoHora.getStringHora(newStart);
-    agendamentoSelecionado.hora = newStartSTring;
+    simulacaoSelecionada.hora = newStartSTring;
     event.start = newStart;
     event.end = newEnd;
     this.refresh.next(null);
-
-    console.log(this.events);
-    console.log(this.agendamentos);
   }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
-    var agendamentoSelecionado = this.obterAgendamentoPorEvento(event);
-    console.log(agendamentoSelecionado);
+    var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
+    console.log(simulacaoSelecionada);
   }
 
   hourSegmentClicked(date: Date, sourceEvent: MouseEvent): void {
     this.adicionarSimulacao(date);
   }
 
-  obterAgendamentoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
+  obterSimulacaoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
     // Busca um agendamento correspondente ao evento, buscando pela hora de início
     const eventStartString = ConversaoHora.getStringHora(event.start);
-    return this.agendamentos.filter((value) => value.hora == eventStartString)[0];
+    return this.simulacoes.filter((value) => value.hora == eventStartString)[0];
   }
 
   async adicionarSimulacao(date: Date): Promise<void> {
@@ -78,11 +75,11 @@ export class ShowSimulacaoComponent implements OnInit {
     servico selecionado não foi atribuído */
     if (servicoSelecionado.id == 0) return;
 
-    var agendamento = new AgendamentoSimulacao();
-    agendamento.idServico = servicoSelecionado.id
-    agendamento.hora = AgendamentoSimulacao.horaAsString(date.getHours(), date.getMinutes());
+    var simulacao = new AgendamentoSimulacao();
+    simulacao.idServico = servicoSelecionado.id
+    simulacao.hora = AgendamentoSimulacao.horaAsString(date.getHours(), date.getMinutes());
 
-    const horaTerminoString = agendamento.getHoraTermino(servicoSelecionado);
+    const horaTerminoString = simulacao.getHoraTermino(servicoSelecionado);
     var horaTermino = ConversaoHora.getDateFromString(horaTerminoString);
 
     var novoEvento: CalendarEvent = {
@@ -93,7 +90,7 @@ export class ShowSimulacaoComponent implements OnInit {
     };
 
     this.events.push(novoEvento);
-    this.agendamentos.push(agendamento);
+    this.simulacoes.push(simulacao);
     this.refresh.next(null);
   }
 
