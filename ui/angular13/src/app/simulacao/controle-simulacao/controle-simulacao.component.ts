@@ -12,13 +12,21 @@ export class ControleSimulacaoComponent implements OnInit {
   constructor(private apiService: ApicallService) { }
 
   @Input() simulacoes: AgendamentoSimulacao[] = [];
-  faturamento: number = 0;
+  faturamento: string = "";
 
   ngOnInit(): void {
   }
 
   atualizarSimulacao(): void {
-    this.apiService.calcularFaturamento(this.simulacoes).subscribe(response => this.faturamento = response);
+    let valorFaturamento = 0;
+    let formatter = new Intl.NumberFormat("pt-BR", {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    this.apiService.calcularFaturamento(this.simulacoes).subscribe(response => {
+      valorFaturamento = response
+      this.faturamento = formatter.format(valorFaturamento);
+    });
   }
 
 }
