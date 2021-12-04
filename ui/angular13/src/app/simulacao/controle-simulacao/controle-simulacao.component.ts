@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
+import { ApicallService } from 'src/app/apicall.service';
 
 @Component({
   selector: 'app-controle-simulacao',
@@ -8,12 +9,16 @@ import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 })
 export class ControleSimulacaoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApicallService) { }
 
   @Input() simulacoes: AgendamentoSimulacao[] = [];
   faturamento: number = 0;
 
   ngOnInit(): void {
+  }
+
+  atualizarSimulacao(): void {
+    this.apiService.calcularFaturamento(this.simulacoes).subscribe(response => this.faturamento = response);
   }
 
 }

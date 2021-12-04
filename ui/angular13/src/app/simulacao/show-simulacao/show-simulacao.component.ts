@@ -75,7 +75,7 @@ export class ShowSimulacaoComponent implements OnInit {
     if (servicoSelecionado?.id == 0) return;
 
     var simulacao = new AgendamentoSimulacao();
-    simulacao.idServico = servicoSelecionado.id
+    simulacao.servicoId = servicoSelecionado.id
     simulacao.hora = AgendamentoSimulacao.horaAsString(date.getHours(), date.getMinutes());
 
     const horaTerminoString = simulacao.getHoraTermino(servicoSelecionado);
@@ -98,14 +98,14 @@ export class ShowSimulacaoComponent implements OnInit {
     var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
 
     const modalRef = this.abrirJanelaEdicao("Editar agendamento", event.start);
-    modalRef.componentInstance.idSelecionado = simulacaoSelecionada.idServico;
+    modalRef.componentInstance.idSelecionado = simulacaoSelecionada.servicoId;
     modalRef.componentInstance.exibirBotaoRemover = true;
 
     modalRef.result.then((result) => {
       const dadosResult = result as RetornoAddEditSimulacao;
 
       if (!dadosResult.delete) {
-        simulacaoSelecionada.idServico = dadosResult.servico?.id ?? 0;
+        simulacaoSelecionada.servicoId = dadosResult.servico?.id ?? 0;
         simulacaoSelecionada.hora = ConversaoHora.getStringHora(dadosResult.hora);
         event.title = dadosResult.servico?.nome ?? "";
         event.start = dadosResult.hora;

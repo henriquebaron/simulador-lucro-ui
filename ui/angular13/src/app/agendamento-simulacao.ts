@@ -2,7 +2,7 @@ import { Servico } from "./servico";
 
 export class AgendamentoSimulacao {
     hora: string = "00:00";
-    idServico: number = 0;
+    servicoId: number = 0;
 
     static getMinutos(agendamento: AgendamentoSimulacao): number {
         return Number.parseInt(agendamento.hora.split(':')[1]);
@@ -17,7 +17,7 @@ export class AgendamentoSimulacao {
     }
 
     getHoraTermino(servico: Servico | null): string {
-        if (servico?.id != this.idServico) throw new Error("O ID do parâmetro Serviço não corresponde ao ID de serviço do objeto atual.");
+        if (servico?.id != this.servicoId) throw new Error("O ID do parâmetro Serviço não corresponde ao ID de serviço do objeto atual.");
 
         var minutos = AgendamentoSimulacao.getMinutos(this);
         var horas = AgendamentoSimulacao.getHoras(this);

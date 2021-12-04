@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Servico } from './servico';
+import { AgendamentoSimulacao } from './agendamento-simulacao';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,13 @@ export class ApicallService {
 
   removerServico(id: number) {
     return this.api.delete(this.apiUrl + "/servicos/" + id);
+  }
+
+  calcularFaturamento(simulacoes: AgendamentoSimulacao[]): Observable<number> {
+    let requestBody = JSON.stringify(simulacoes);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    };
+    return this.api.post<number>(this.apiUrl + "/simulacao/simfaturamento", requestBody, httpOptions);
   }
 }
