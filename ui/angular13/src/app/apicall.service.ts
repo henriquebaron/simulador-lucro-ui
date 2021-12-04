@@ -35,8 +35,16 @@ export class ApicallService {
   calcularFaturamento(simulacoes: AgendamentoSimulacao[]): Observable<number> {
     let requestBody = JSON.stringify(simulacoes);
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     return this.api.post<number>(this.apiUrl + "/simulacao/simfaturamento", requestBody, httpOptions);
+  }
+
+  calcularLucro(simulacoes: AgendamentoSimulacao[]): Observable<number> {
+    let requestBody = JSON.stringify(simulacoes);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    }
+    return this.api.post<number>(this.apiUrl + "/simulacao/simlucro", requestBody, httpOptions);
   }
 }
