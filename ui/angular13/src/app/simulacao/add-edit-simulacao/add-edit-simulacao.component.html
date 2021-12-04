@@ -21,5 +21,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="salvar()">Salvar</button>
+    <button type="button" *ngIf="exibirBotaoRemover" class="btn btn-danger" (click)="apagar()">Remover</button>
+    <button type="button" class="btn btn-primary" (click)="salvar()">Salvar</button>
 </div>

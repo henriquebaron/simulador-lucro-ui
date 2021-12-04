@@ -55,7 +55,7 @@ export class ShowSimulacaoComponent implements OnInit {
   private async adicionarSimulacao(date: Date): Promise<void> {
     const modalRef = this.abrirJanelaEdicao("Novo agendamento", date);
 
-    var servicoSelecionado = new Servico();
+    var servicoSelecionado: Servico | null = new Servico();
     await modalRef.result.then((result) => {
       const dadosResult = result as RetornoAddEditSimulacao;
       servicoSelecionado = dadosResult.servico;
@@ -64,7 +64,7 @@ export class ShowSimulacaoComponent implements OnInit {
 
     /* Encerra o método se a janela de seleção foi fechada e o 
     servico selecionado não foi atribuído */
-    if (servicoSelecionado.id == 0) return;
+    if (servicoSelecionado?.id == 0) return;
 
     var simulacao = new AgendamentoSimulacao();
     simulacao.idServico = servicoSelecionado.id
@@ -85,20 +85,38 @@ export class ShowSimulacaoComponent implements OnInit {
     this.refresh.next(null);
   }
 
-  private async editarSimulacao(event: CalendarEvent): Promise<void> {
+  private editarSimulacao(event: CalendarEvent): void {
     var simulacaoSelecionada = this.obterSimulacaoPorEvento(event);
 
     const modalRef = this.abrirJanelaEdicao("Editar agendamento", event.start);
     modalRef.componentInstance.idSelecionado = simulacaoSelecionada.idServico;
-    await modalRef.result.then((result) => {
+    modalRef.componentInstance.exibirBotaoRemover = true;
+
+    modalRef.result.then((result) => {
       const dadosResult = result as RetornoAddEditSimulacao;
-      simulacaoSelecionada.idServico = dadosResult.servico.id;
-      simulacaoSelecionada.hora = ConversaoHora.getStringHora(dadosResult.hora);
-      event.title = dadosResult.servico.nome;
-      event.start = dadosResult.hora;
-      event.end = ConversaoHora.getDateFromString(simulacaoSelecionada.getHoraTermino(dadosResult.servico));
+
+      if (!dadosResult.delete) {
+        simulacaoSelecionada.idServico = dadosResult.servico?.id ?? 0;
+        simulacaoSelecionada.hora = ConversaoHora.getStringHora(dadosResult.hora);
+        event.title = dadosResult.servico?.nome ?? "";
+        event.start = dadosResult.hora;
+        event.end = ConversaoHora.getDateFromString(simulacaoSelecionada.getHoraTermino(dadosResult.servico));
+      } else {
+        var index = this.simulacoes.findIndex(item =>
+          item.hora == ConversaoHora.getStringHora(dadosResult.hora));
+        if (index > -1) {
+          this.simulacoes.splice(index, 1);
+        } else throw new Error("Erro ao buscar pela simulação de agendamento a excluir.");
+
+        index = this.events.findIndex(item => item.start == dadosResult.hora);
+        if (index > -1) {
+          this.events.splice(index, 1);
+        } else throw new Error("Erro ao buscar pelo Event a excluir.");
+      }
+      this.refresh.next(null);
+      console.log(this.simulacoes);
+      console.log(this.events);
     })
-    this.refresh.next(null);
   }
 
   private obterSimulacaoPorEvento(event: CalendarEvent): AgendamentoSimulacao {
@@ -107,10 +125,10 @@ export class ShowSimulacaoComponent implements OnInit {
     return this.simulacoes.filter((value) => value.hora == eventStartString)[0];
   }
 
-  private abrirJanelaEdicao(nomeJanela: string, horaSelecionada: Date): NgbModalRef {
+  private abrirJanelaEdicao(nomeJanela: string, horaInicial: Date): NgbModalRef {
     const modalRef = this.modalService.open(AddEditSimulacaoComponent);
     modalRef.componentInstance.nomeJanela = nomeJanela;
-    modalRef.componentInstance.horaSelecionada = horaSelecionada;
+    modalRef.componentInstance.horaInicial = horaInicial;
     return modalRef;
   }
 

@@ -1,6 +1,7 @@
 import { Servico } from "../servico";
 
 export interface RetornoAddEditSimulacao {
-    servico: Servico;
+    servico: Servico | null;
     hora: Date;
+    delete?: boolean;
 }
