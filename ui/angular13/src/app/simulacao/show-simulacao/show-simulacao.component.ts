@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/internal/Subject';
 import {
@@ -19,6 +25,8 @@ import { RetornoAddEditSimulacao } from '../retorno-add-edit-simulacao';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowSimulacaoComponent implements OnInit {
+
+  @Output() simulacoesEvent = new EventEmitter<AgendamentoSimulacao[]>();
 
   constructor(private modalService: NgbModal) { }
 
@@ -83,6 +91,7 @@ export class ShowSimulacaoComponent implements OnInit {
     this.events.push(novoEvento);
     this.simulacoes.push(simulacao);
     this.refresh.next(null);
+    this.simulacoesEvent.emit(this.simulacoes);
   }
 
   private editarSimulacao(event: CalendarEvent): void {
@@ -114,8 +123,7 @@ export class ShowSimulacaoComponent implements OnInit {
         } else throw new Error("Erro ao buscar pelo Event a excluir.");
       }
       this.refresh.next(null);
-      console.log(this.simulacoes);
-      console.log(this.events);
+      this.simulacoesEvent.emit(this.simulacoes);
     })
   }
 

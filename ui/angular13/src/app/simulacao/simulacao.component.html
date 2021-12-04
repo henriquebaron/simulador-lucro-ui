@@ -1,1 +1,2 @@
-<app-show-simulacao></app-show-simulacao>
+<app-controle-simulacao [simulacoes]="simulacoes"></app-controle-simulacao>
+<app-show-simulacao (simulacoesEvent)="simulacoes = $event"></app-show-simulacao>

@@ -20,6 +20,7 @@ import { ShowSimulacaoComponent } from './simulacao/show-simulacao/show-simulaca
 import { AddEditSimulacaoComponent } from './simulacao/add-edit-simulacao/add-edit-simulacao.component';
 import { NgbModule, NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeDateAdapter } from 'src/shared/timepicker-number-adapter';
+import { ControleSimulacaoComponent } from './simulacao/controle-simulacao/controle-simulacao.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NgbTimeDateAdapter } from 'src/shared/timepicker-number-adapter';
     AgendaComponent,
     SimulacaoComponent,
     ShowSimulacaoComponent,
-    AddEditSimulacaoComponent
+    AddEditSimulacaoComponent,
+    ControleSimulacaoComponent
   ],
   imports: [
     BrowserModule,

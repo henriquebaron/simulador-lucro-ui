@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AgendamentoSimulacao } from '../agendamento-simulacao';
 
 @Component({
   selector: 'app-simulacao',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class SimulacaoComponent implements OnInit {
 
   constructor() { }
+
+  simulacoes: AgendamentoSimulacao[] = [];
 
   ngOnInit(): void {
   }
