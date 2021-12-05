@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Servico } from './servico';
 import { AgendamentoSimulacao } from './agendamento-simulacao';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApicallService {
-  private readonly apiUrl = "http://localhost:5000/api";
+  private readonly apiUrl = environment.API_URL;
 
   constructor(private api: HttpClient) { }
 
