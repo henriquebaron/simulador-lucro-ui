@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: "http://simuladorlucro-api.azurewebsites.com/api"
+  API_URL: "https://simuladorlucro-api.azurewebsites.net/api"
 };
