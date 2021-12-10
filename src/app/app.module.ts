@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ import { ControleSimulacaoComponent } from './simulacao/controle-simulacao/contr
   ],
   providers: [
     ApicallService,
-    {provide: NgbTimeAdapter, useClass: NgbTimeDateAdapter}
+    {provide: NgbTimeAdapter, useClass: NgbTimeDateAdapter},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

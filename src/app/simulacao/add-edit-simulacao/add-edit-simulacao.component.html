@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="servico">Qual é o serviço?</label>
             <select id="servico" class="form-control" [(ngModel)]="idSelecionado" name="id">
-                <option [disabled]="true" [value]="0">--Escola um serviço--</option>
+                <option [disabled]="true" [value]="0">--Escolha um serviço--</option>
                 <option *ngFor="let servicoItem of servicos" [value]="servicoItem.id">
                     {{servicoItem.nome}}
                 </option>
