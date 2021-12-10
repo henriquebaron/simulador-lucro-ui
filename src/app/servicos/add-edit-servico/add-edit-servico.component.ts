@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ApicallService } from 'src/app/apicall.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Servico } from 'src/app/servico';
+import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 
 @Component({
   selector: 'app-add-edit-servico',
@@ -9,9 +10,10 @@ import { Servico } from 'src/app/servico';
 })
 export class AddEditServicoComponent implements OnInit {
 
-  constructor(private apiService: ApicallService) { }
+  constructor(public activeModal: NgbActiveModal) { }
 
   @Input() servico: Servico = new Servico();
+  @Input() nomeJanela: string = "";
   minutos: number = 0;
   horas: number = 0;
 
@@ -20,14 +22,12 @@ export class AddEditServicoComponent implements OnInit {
     this.horas = Servico.getHoras(this.servico);
    }
 
-  addServico() {
+  salvar() {
     this.servico.duracao = Servico.duracaoAsString(this.horas, this.minutos);
-    this.apiService.adicionarServico(this.servico).subscribe(res => { console.log(res) });
-  }
-
-  editServico() {
-    this.servico.duracao = Servico.duracaoAsString(this.horas, this.minutos);
-    this.apiService.atualizarServico(this.servico).subscribe(res => { console.log(res) });
+    const dadosResult: RetornoAddEditServico = {
+      servico: this.servico
+    }
+    this.activeModal.close(dadosResult);
   }
 
 }

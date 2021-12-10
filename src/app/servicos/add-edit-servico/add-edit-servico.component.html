@@ -1,39 +1,50 @@
-<div class="form-group">
-    <div class="row">
-        <label class="col-sm-2 col-form-label">Nome</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" [(ngModel)]="servico.nome" placeholder="nome do serviço">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-2 col-form-label">Descrição</label>
-        <div class="col-md-10">
-            <input type="text" class="form-control" [(ngModel)]="servico.descricao"
-                placeholder="quer adicionar algum detalhe?">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-2 col-form-label">Duração</label>
-        <div class="col-md-2">
-            <input type="number" class="form-control" [(ngModel)]="horas">
-        </div>
-        <div class="col-md-2">
-            <input type="number" class="form-control" [(ngModel)]="minutos">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-2 col-form-label">Valor</label>
-        <div class="col-md-10">
-            <input type="number" class="form-control" [(ngModel)]="servico.valor">
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-2 col-form-label">Custo</label>
-        <div class="col-md-10">
-            <input type="number" class="form-control" [(ngModel)]="servico.custo">
-        </div>
-    </div>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{nomeJanela}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
-
-<button (click)="addServico()" *ngIf="servico.id == 0" class="btn btn-primary">Adicionar</button>
-<button (click)="editServico()" *ngIf="servico.id != 0" class="btn btn-primary">Aplicar</button>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" [(ngModel)]="servico.nome" name="nome"
+                        placeholder="nome do serviço">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Descrição</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="servico.descricao" name="descricao"
+                        placeholder="quer adicionar algum detalhe?">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Duração</label>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" [(ngModel)]="horas" name="horas">
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" [(ngModel)]="minutos" name="minutos">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Valor</label>
+                <div class="col-md-10">
+                    <input type="number" class="form-control" [(ngModel)]="servico.valor" name="valor">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Custo</label>
+                <div class="col-md-10">
+                    <input type="number" class="form-control" [(ngModel)]="servico.custo" name="custo">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="salvar()">Salvar</button>
+</div>

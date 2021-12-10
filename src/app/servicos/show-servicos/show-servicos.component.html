@@ -1,23 +1,6 @@
-<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#modalAddEdit"
-  (click)="addServico()" data-backdrop="static" data-keyboard="false">
+<button type="button" class="btn btn-primary float-end m-2" (click)="addServico()">
   Adicionar serviço
 </button>
-
-<!-- Janela modal de edição de um serviço novo ou já existente -->
-<div class="modal" id="modalAddEdit" tabindex="-1" aria-labelledby="modalAddEditLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-x1">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalAddEditLabel">{{modalTitle}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="fechaModal()"></button>
-      </div>
-      <div class="modal-body">
-        <app-add-edit-servico [servico]=servico *ngIf="ativarAddEditCompleto"></app-add-edit-servico>
-      </div>
-    </div>
-  </div>
-</div>
 
 <table class="table table-striped">
   <thead>

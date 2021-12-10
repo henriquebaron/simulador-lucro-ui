@@ -1,7 +1,9 @@
 import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApicallService } from 'src/app/apicall.service';
 import { Servico } from 'src/app/servico';
-import { ServicosComponent } from '../servicos.component';
+import { AddEditServicoComponent } from '../add-edit-servico/add-edit-servico.component';
+import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 
 @Component({
   selector: 'app-show-servicos',
@@ -10,13 +12,10 @@ import { ServicosComponent } from '../servicos.component';
 })
 export class ShowServicosComponent implements OnInit {
 
-  constructor(private apiService: ApicallService) { }
+  constructor(private apiService: ApicallService, private modalService: NgbModal) { }
 
   listaServicos: Servico[] = [];
   servico: Servico = new Servico();
-
-  ativarAddEditCompleto: boolean = false;
-  modalTitle: string = "";
 
   ngOnInit(): void {
     this.obterListaServicos();
@@ -28,16 +27,24 @@ export class ShowServicosComponent implements OnInit {
     })
   }
 
-  addServico() {
-    this.modalTitle = "Adicionar serviço";
-    this.servico = new Servico();
-    this.ativarAddEditCompleto = true;
+  async addServico() {
+    const modalRef = this.abrirJanelaEdicao("Adicionar serviço", this.servico);
+    await modalRef.result.then((result) => {
+      const servico = (result as RetornoAddEditServico).servico;
+      if (servico) {
+        this.apiService.adicionarServico(servico).subscribe(() => this.obterListaServicos());
+      }
+    }, () => { });
   }
 
-  editServico(servico: Servico) {
-    this.modalTitle = "Editar serviço";
-    this.servico = servico;
-    this.ativarAddEditCompleto = true;
+  async editServico(servico: Servico) {
+    const modalRef = this.abrirJanelaEdicao("Editar serviço", servico);
+    await modalRef.result.then(result => {
+      const servico = (result as RetornoAddEditServico).servico;
+      if (servico) {
+        this.apiService.atualizarServico(servico).subscribe(() => this.obterListaServicos());
+      }
+    }, () => { });
   }
 
   deleteServico(servico: Servico) {
@@ -51,9 +58,11 @@ export class ShowServicosComponent implements OnInit {
     }
   }
 
-  fechaModal() {
-    this.ativarAddEditCompleto = false;
-    this.obterListaServicos();
+  private abrirJanelaEdicao(nomeJanela: string, servico: Servico): NgbModalRef {
+    const modalRef = this.modalService.open(AddEditServicoComponent);
+    modalRef.componentInstance.nomeJanela = nomeJanela;
+    modalRef.componentInstance.servico = servico;
+    return modalRef;
   }
 
 }
