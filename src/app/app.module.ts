@@ -24,6 +24,7 @@ import { NgbTimeDateAdapter } from 'src/shared/timepicker-number-adapter';
 import { MatTableModule } from '@angular/material/table';
 import { ControleSimulacaoComponent } from './simulacao/controle-simulacao/controle-simulacao.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MatButtonModule } from '@angular/material/button';
     }),
     NgbModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule
   ],
   providers: [
     ApicallService,
