@@ -21,7 +21,9 @@ import { ShowSimulacaoComponent } from './simulacao/show-simulacao/show-simulaca
 import { AddEditSimulacaoComponent } from './simulacao/add-edit-simulacao/add-edit-simulacao.component';
 import { NgbModule, NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeDateAdapter } from 'src/shared/timepicker-number-adapter';
+import { MatTableModule } from '@angular/material/table';
 import { ControleSimulacaoComponent } from './simulacao/controle-simulacao/controle-simulacao.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { ControleSimulacaoComponent } from './simulacao/controle-simulacao/contr
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    NgbModule
+    NgbModule,
+    MatTableModule,
+    MatButtonModule
   ],
   providers: [
     ApicallService,
