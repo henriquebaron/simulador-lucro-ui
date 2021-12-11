@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Servico } from 'src/app/servico';
 import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 
@@ -10,7 +10,7 @@ import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 })
 export class AddEditServicoComponent implements OnInit {
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) { }
 
   @Input() servico: Servico = new Servico();
   @Input() nomeJanela: string = "";
@@ -20,7 +20,7 @@ export class AddEditServicoComponent implements OnInit {
   ngOnInit(): void {
     this.minutos = Servico.getMinutos(this.servico);
     this.horas = Servico.getHoras(this.servico);
-   }
+  }
 
   salvar() {
     this.servico.duracao = Servico.duracaoAsString(this.horas, this.minutos);
@@ -28,6 +28,16 @@ export class AddEditServicoComponent implements OnInit {
       servico: this.servico
     }
     this.activeModal.close(dadosResult);
+  }
+
+  abrirModalApagar(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-apagar' }).result.then((result) => {
+      const dadosResult: RetornoAddEditServico = {
+        servico: this.servico,
+        delete: true
+      }
+      this.activeModal.close(dadosResult);
+    }, () => { })
   }
 
 }

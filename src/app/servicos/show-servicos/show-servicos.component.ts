@@ -16,7 +16,7 @@ export class ShowServicosComponent implements OnInit {
 
   listaServicos: Servico[] = [];
   servico: Servico = new Servico();
-  colunasExibicao: string[] = ['nome', 'descricao', 'duracao', 'valor', 'custo', 'acoes'];
+  colunasExibicao: string[] = ['nome', 'descricao', 'duracao', 'valor', 'custo'];
 
   ngOnInit(): void {
     this.obterListaServicos();
@@ -41,9 +41,13 @@ export class ShowServicosComponent implements OnInit {
   async editServico(servico: Servico) {
     const modalRef = this.abrirJanelaEdicao("Editar serviço", servico);
     await modalRef.result.then(result => {
-      const servico = (result as RetornoAddEditServico).servico;
-      if (servico) {
-        this.apiService.atualizarServico(servico).subscribe(() => this.obterListaServicos());
+      const retornoAddEdit = result as RetornoAddEditServico;
+      if (retornoAddEdit.servico) {
+        if (!retornoAddEdit.delete) {
+          this.apiService.atualizarServico(retornoAddEdit.servico).subscribe(() => this.obterListaServicos());
+        } else {
+          this.apiService.removerServico(retornoAddEdit.servico.id).subscribe(() => this.obterListaServicos());
+        }
       }
     }, () => { });
   }
