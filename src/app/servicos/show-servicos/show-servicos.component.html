@@ -45,5 +45,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colunasExibicao"></tr>
-  <tr mat-row *matRowDef="let rowData; columns: colunasExibicao"></tr>
+  <tr mat-row *matRowDef="let rowData; columns: colunasExibicao" (click)="editServico(rowData)"></tr>
 </table>
