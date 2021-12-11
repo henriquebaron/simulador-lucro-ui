@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Servico } from 'src/app/servico';
+import { Servico } from 'src/shared/servico';
 import { RetornoAddEditSimulacao } from '../retorno-add-edit-simulacao';
 import { ApicallService } from 'src/app/apicall.service';
 

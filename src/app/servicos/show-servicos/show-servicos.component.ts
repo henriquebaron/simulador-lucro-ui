@@ -1,7 +1,7 @@
 import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ApicallService } from 'src/app/apicall.service';
-import { Servico } from 'src/app/servico';
+import { Servico } from 'src/shared/servico';
 import { AddEditServicoComponent } from '../add-edit-servico/add-edit-servico.component';
 import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 

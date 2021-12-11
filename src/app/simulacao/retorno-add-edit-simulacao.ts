@@ -1,4 +1,4 @@
-import { Servico } from "../servico";
+import { Servico } from "src/shared/servico";
 
 export interface RetornoAddEditSimulacao {
     servico: Servico | null;

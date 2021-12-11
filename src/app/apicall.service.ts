@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Servico } from './servico';
+import { Servico } from 'src/shared/servico';
 import { AgendamentoSimulacao } from './agendamento-simulacao';
 import { environment } from 'src/environments/environment';
 

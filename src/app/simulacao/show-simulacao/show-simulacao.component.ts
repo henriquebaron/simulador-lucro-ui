@@ -14,8 +14,8 @@ import {
 } from 'angular-calendar'
 import { AgendamentoSimulacao } from 'src/app/agendamento-simulacao';
 import { AddEditSimulacaoComponent } from '../add-edit-simulacao/add-edit-simulacao.component';
-import { Servico } from 'src/app/servico';
-import { ConversaoHora } from 'src/app/conversao-hora';
+import { Servico } from 'src/shared/servico';
+import { ConversaoHora } from 'src/shared/conversao-hora';
 import { RetornoAddEditSimulacao } from '../retorno-add-edit-simulacao';
 
 @Component({
