@@ -18,3 +18,7 @@ body {
 .mat-header-cell {
     padding: 8px 8px 8px 0 !important;
 }
+
+.mat-sidenav-container {
+    height: 100%;
+}
