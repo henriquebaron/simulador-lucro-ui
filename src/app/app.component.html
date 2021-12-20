@@ -1,19 +1,19 @@
-  <mat-toolbar color="primary">
-    <button mat-icon-button (click)="sidenav.open()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1>Simulador de lucros com serviços</h1>
-  </mat-toolbar>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.open()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Simulador de lucros com serviços</h1>
+</mat-toolbar>
 
-  <mat-sidenav-container (backdropClick)="sidenav.close()">
-    <mat-sidenav #sidenav (keydown.escape)="sidenav.close()" disableClose>
-      <p><button mat-button routerLink="servicos">Serviços</button></p>
-      <p><button mat-button routerLink="simulacao">Simulação</button></p>
-    </mat-sidenav>
+<mat-sidenav-container (backdropClick)="sidenav.close()">
+  <mat-sidenav #sidenav (keydown.escape)="sidenav.close()" disableClose>
+    <p><button mat-button routerLink="servicos">Serviços</button></p>
+    <p><button mat-button routerLink="simulacao">Simulação</button></p>
+  </mat-sidenav>
 
-    <mat-sidenav-content>
-      <div class="container">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
