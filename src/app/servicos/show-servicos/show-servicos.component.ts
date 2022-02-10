@@ -18,6 +18,11 @@ export class ShowServicosComponent implements OnInit {
   servico: Servico = new Servico();
   colunasExibicao: string[] = ['nome', 'descricao', 'duracao', 'valor'];
 
+  formatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  });
+
   ngOnInit(): void {
     this.obterListaServicos();
   }
