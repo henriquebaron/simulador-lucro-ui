@@ -16,7 +16,7 @@ export class ShowServicosComponent implements OnInit {
 
   listaServicos: Servico[] = [];
   servico: Servico = new Servico();
-  colunasExibicao: string[] = ['nome', 'descricao', 'duracao', 'valor', 'custo'];
+  colunasExibicao: string[] = ['nome', 'descricao', 'duracao', 'valor'];
 
   ngOnInit(): void {
     this.obterListaServicos();

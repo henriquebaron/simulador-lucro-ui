@@ -14,14 +14,12 @@ export class ControleSimulacaoComponent implements OnInit {
 
   @Input() simulacoes: AgendamentoSimulacao[] = [];
   faturamento: string = "";
-  lucro: string = "";
 
   ngOnInit(): void {
   }
 
   atualizarSimulacao(): void {
     let valorFaturamento = 0;
-    let valorLucro = 0;
     let formatter = new Intl.NumberFormat("pt-BR", {
       style: 'currency',
       currency: 'BRL',
@@ -30,10 +28,6 @@ export class ControleSimulacaoComponent implements OnInit {
       valorFaturamento = response;
       this.faturamento = formatter.format(valorFaturamento);
     });
-    this.apiService.calcularLucro(this.simulacoes).subscribe(response => {
-      valorLucro = response;
-      this.lucro = formatter.format(valorLucro);
-    })
   }
 
 }
