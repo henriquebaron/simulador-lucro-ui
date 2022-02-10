@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { da } from 'date-fns/locale';
 import { Servico } from 'src/shared/servico';
 import { RetornoAddEditServico } from '../retorno-add-edit-servico';
 
@@ -14,16 +15,15 @@ export class AddEditServicoComponent implements OnInit {
 
   @Input() servico: Servico = new Servico();
   @Input() nomeJanela: string = "";
-  minutos: number = 0;
-  horas: number = 0;
+  duracao: Date = new Date();
 
   ngOnInit(): void {
-    this.minutos = Servico.getMinutos(this.servico);
-    this.horas = Servico.getHoras(this.servico);
+    this.duracao.setHours(Servico.getHoras(this.servico));
+    this.duracao.setMinutes(Servico.getMinutos(this.servico));
   }
 
   salvar() {
-    this.servico.duracao = Servico.duracaoAsString(this.horas, this.minutos);
+    this.servico.duracao = Servico.duracaoAsString(this.duracao.getHours(), this.duracao.getMinutes());
     const dadosResult: RetornoAddEditServico = {
       servico: this.servico
     }

@@ -38,12 +38,9 @@
                 </div>
             </div>
             <div class="row">
-                <label class="col-sm-2 col-form-label">Duração</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control" [(ngModel)]="horas" name="horas">
-                </div>
-                <div class="col-sm-3">
-                    <input type="number" class="form-control" [(ngModel)]="minutos" name="minutos">
+                <label for="duracao" class="col-sm-2 col-form-label">Duração</label>
+                <div class="col-md-10">
+                    <ngb-timepicker [(ngModel)]="duracao" name="time"></ngb-timepicker>
                 </div>
             </div>
             <div class="row">
